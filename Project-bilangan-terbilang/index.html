@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascritp</title>
+</head>
+<body>
+    <script src="jquery.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $("#angka").keyup(function () {
+                var angkane = $("#angka").val();
+                var pch = angkane.split(".");
+                var hsldec = "";
+
+                if (pch.length > 1) {
+                    for (i = 0; i < pch.length; i++) {
+                        if (i == pch.length - 1) {
+                            hsldec += terbilang(pch[i]);
+                        } else {
+                            hsldec += terbilang(pch[i]) + " koma ";
+                        }
+                    }
+                } else {
+                    hsldec = terbilang(angkane);
+                }
+                $("#out").html(hsldec);
+            });
+
+        });
+
+        function terbilang(angka) {
+            var bilne = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas"];
+            if (angka < 12) {
+                return bilne[angka];
+            } else if (angka < 20) {
+                return terbilang(angka - 10) + " belas";
+            } else if (angka < 100) {
+                return terbilang(Math.floor(parseInt(angka) / 10)) + " puluh " + terbilang(parseInt(angka) % 10);
+            } else if (angka < 200) {
+                return "seratus " + terbilang(parseInt(angka) - 100);
+            } else if (angka < 1000) {
+                return terbilang(Math.floor(parseInt(angka) / 100)) + " ratus " + terbilang(parseInt(angka) % 100);
+            } else if (angka < 2000) {
+                return "seribu " + terbilang(parseInt(angka) - 1000);
+            } else if (angka < 1000000) {
+                return terbilang(Math.floor(parseInt(angka) / 1000)) + " ribu " + terbilang(parseInt(angka) % 1000);
+            } else if (angka < 1000000000) {
+                return terbilang(Math.floor(parseInt(angka) / 1000000)) + " juta " + terbilang(parseInt(angka) % 1000000);
+            } else if (angka < 1000000000000) {
+                return terbilang(Math.floor(parseInt(angka) / 1000000000)) + " milyar " + terbilang(parseInt(angka) % 1000000000);
+            } else if (angka < 1000000000000000) {
+                return terbilang(Math.floor(parseInt(angka) / 1000000000000)) + " trilyun " + terbilang(parseInt(angka) % 1000000000000);
+            }
+        }
+    </script>
+    
+    <form method="POST">
+        Masukkan angka : <input type="text" name="angka" id="angka">
+        <br>
+        <input type="button" name="tbl" value="Terbilang" id="tbl">
+    </form>
+    <div id="out"></div>
+</body>
+</html>
